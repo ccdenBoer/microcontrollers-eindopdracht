@@ -15,6 +15,8 @@
 #include <string.h>
 #include "lcd/lcd.h"
 #include "spi/spi.h"
+#include "adc/adc.h"
+#include "timer/timer.h"
 
 #ifndef BIT
 #define BIT(x)		( 1<<x )
