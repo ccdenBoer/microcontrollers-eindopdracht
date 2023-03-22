@@ -14,6 +14,5 @@ void timer_init(){
 	TCCR1A = 0b00000000;
 	TCCR1B = 0b00001100; // // Initialize T1: timer, prescaler = 256, compare output disconnected, CTC, RUN
 	TIMSK |= (1<<4); // T1 compare match A interrupt enable
-	sei();
-}void timer_set_compare_value(int value){	OCR1A = value;}
+}void timer_set_compare_value(int value){	OCR1A = (10000+value);}
 

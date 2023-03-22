@@ -23,10 +23,33 @@
 #endif
 
 volatile int msCount = 0;
+bool right_direction = true;
+
+int number = 0;
 
 ISR( TIMER1_COMPA_vect ) {
 	writeLedDisplay(msCount);
-	msCount++;
+	number = ADCH << 2;
+	number |= ADCL >> 6;
+	timer_set_compare_value(20*number);
+	
+	if(right_direction){
+		msCount++;
+		//move right
+	} else {
+		msCount--;
+		//move left
+	}
+	
+	
+}
+
+ISR( INT0_vect ) {
+    if(right_direction){
+		right_direction = false;
+	} else {
+		right_direction = true;
+	}
 }
 
 int main(void)
@@ -37,7 +60,6 @@ int main(void)
 	
 	init_4bits_mode();
 	lcd_clear();
-	lcd_write_string("yoo");
 	
 	//spi
 	// inilialize
@@ -52,31 +74,36 @@ int main(void)
 		spi_write(0);				// 	digit value: 0
 		spi_slaveDeSelect(0);		// Deselect display chip
 	}
-	
-	//timer
-	//DDRD = 0xFF;
-	timer_init();
-	
-	
+		
 	//adc
 	DDRF = 0x00;				// set PORTF for input (ADC)
 	DDRA = 0xFF;
 	//DDRD = 0xFF;
 	adc_init();
 	
-	_delay_ms(500);
-	timer_set_compare_value(5000);
-	lcd_write_string("fest");
-	int number = 0;
+	number = ADCH << 2;
+	number |= ADCL >> 6;
+	
+	//timer
+	//DDRD = 0xFF;
+	timer_init();
+	number = ADCH << 2;
+	number |= ADCL >> 6;
+	timer_set_compare_value(6*number);
+	
+	//interupt
+	// Init I/O
+	DDRE = 0x01;			// PORTE 0 input	
+
+	// Init Interrupt hardware
+	EICRA |= 0x03;			// INT0 rising edge
+	EIMSK |= 0x01;			// Enable INT0
+	
+	sei();
 	
     while (1) 
     {
-		//ADCSRA |= BIT(6);
-		//while (ADCSRA & BIT(6));
 
-		number = ADCH << 2;
-		number |= ADCL >> 6;
-		
 		PORTA = ADCH;
 		//PORTD = ADCL;
 		
