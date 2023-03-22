@@ -128,21 +128,19 @@ void setText(char *str) {
 	writeText(str);
 }
 
-void writeText() {
-	int len = strlen(text);
+void writeText(char *string) {
 	int j = 4;
 	for (int i = 0; i < 4; i++, j--) {
-		if (i < len) {
-			writeCharacter(text[j], ((i+position)%len)+1);
-			} else {
-			writeCharacter(j, ((i+position)%len)+1);
-		}
+		writeCharacter(string[i], j);
 	}
 }
 
 void moveText(int steps) {
+	int len = strlen(text)+1;
 	position+=steps;
-	writeText();
+	position%=len;
+	char newText[] = {text[(position)%(len-1)],text[(1+position)%(len-1)],text[(2+position)%(len-1)],text[(3+position)%(len-1)], 0} ;
+	writeText(newText);
 }
 
 int getCharacterCode(char character) {

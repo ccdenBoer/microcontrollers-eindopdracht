@@ -25,8 +25,9 @@ void writeLedDisplay( int value );
 void wait(int ms);
 void writeCharacter(char character, char index);
 int getCharacterCode(char character);
-void writeText();
+void writeText(char *string);
 void setText(char str[]);
+void moveText(int steps);
 
 
 
