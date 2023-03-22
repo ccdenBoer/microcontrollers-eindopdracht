@@ -22,7 +22,7 @@
 #include <avr/io.h>
 #include <util/delay.h>
 #include "spi.h"
-
+#include <ctype.h>
 
 #define DDR_SPI		DDRB					// spi Data direction register
 #define PORT_SPI	PORTB					// spi Output register
@@ -122,61 +122,51 @@ void writeCharacterToDisplay(char character, int index) {
 }
 
 int getCharacterCode(char character) {
-	int getCharacterCode(char character) {
-		switch (character) {
-			case 'A':
-				return 0x77;
-			case 'a':
-				return 0x7D;
-			case 'b':
-				return 0x1F;
-			case 'C':
-				return 0x4E;
-			case 'c':
-				return 0x0D;
-			case 'd':
-				return 0x3D;
-			case 'E':
-				return 0x4F;
-			case 'F':
-				return 0x47;
-			case 'G':
-				return 0x5E;
-			case 'H':
-				return 0x37;
-			case 'h':
-				return 0x17;
-			case 'I':
-				return 0x06;
-			case 'J':
-				return 0x3C;
-			case 'L':
-				return 0x0E;
-			case 'n':
-				return 0x15;
-			case 'O':
-				return 0x7E;
-			case 'o':
-				return 0x1D;
-			case 'P':
-				return 0x67;
-			case 'q':
-				return 0x73;
-			case 'r':
-				return 0x05;
-			case 'S':
-				return 0x5B;
-			case 't':
-				return 0x0F;
-			case 'U':
-				return 0x3E;
-			case 'u':
-				return 0x1C;
-			case 'y':
-				return 0x3B;
-			default:
-				return 0x00;  // return 0x00 for any other character
-		}
+	character = toupper(character);
+	switch (character) {
+		case 'A':
+			return 0x77;
+		case 'B':
+			return 0x1F;
+		case 'C':
+			return 0x4E;
+		case 'D':
+			return 0x3D;
+		case 'E':
+			return 0x4F;
+		case 'F':
+			return 0x47;
+		case 'G':
+			return 0x5E;
+		case 'H':
+			return 0x37;
+		case 'I':
+			return 0x06;
+		case 'J':
+			return 0x3C;
+		case 'L':
+			return 0x0E;
+		case 'N':
+			return 0x15;
+		case 'O':
+			return 0x7E;
+		case 'P':
+			return 0x67;
+		case 'Q':
+			return 0x73;
+		case 'R':
+			return 0x05;
+		case 'S':
+			return 0x5B;
+		case 'T':
+			return 0x0F;
+		case 'U':
+			return 0x3E;
+		case 'Y':
+			return 0x3B;
+		default:
+			printf("%c cannot be written", character);
+			return 0x00;  // return 0x00 for any other character
 	}
 }
 void writeLedDisplay( int value ) {
