@@ -6,3 +6,5 @@ lcd\lcd.c
 
 main.c
 
+spi\spi.c
+
