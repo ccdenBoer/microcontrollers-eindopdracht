@@ -23,6 +23,7 @@
 #include <util/delay.h>
 #include "spi.h"
 #include <ctype.h>
+#include <string.h>
 
 #define DDR_SPI		DDRB					// spi Data direction register
 #define PORT_SPI	PORTB					// spi Output register
@@ -30,7 +31,7 @@
 #define SPI_MOSI	2						// PB2: spi Pin MOSI
 #define SPI_MISO	3						// PB3: spi Pin MISO
 #define SPI_SS		0						// PB0: spi Pin Slave Select
-
+int i = 0;
 // wait(): busy waiting for 'ms' millisecond
 // used library: util/delay.h
 void wait(int ms)
@@ -117,13 +118,27 @@ void displayOff()
   	spi_slaveDeSelect(0);			// Deselect display chip
 }
 
-void writeCharacterToDisplay(char character, int index) {
+void writeCharacter(char character, char index) {
+	spi_writeWord(0x9, 0);
 	spi_writeWord(index, getCharacterCode(character));
 }
 
+void writeString(char str[]) {
+	char first = str[(3+i)%4];
+	char second = str[(2+i)%4];
+	char third = str[(1+i)%4];
+	char fourth = str[i%4];
+	writeCharacter(first, 1);
+	writeCharacter(second, 2);
+	writeCharacter(third, 3);
+	writeCharacter(fourth, 4);
+	i++;
+}
+
+
+
 int getCharacterCode(char character) {
-	character = toupper(character);
-	switch (character) {
+	switch (toupper(character)) {
 		case 'A':
 			return 0x77;
 		case 'B':
@@ -165,7 +180,6 @@ int getCharacterCode(char character) {
 		case 'Y':
 			return 0x3B;
 		default:
-			printf("%c cannot be written", character);
 			return 0x00;  // return 0x00 for any other character
 	}
 }

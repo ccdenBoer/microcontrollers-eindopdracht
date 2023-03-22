@@ -47,14 +47,15 @@ int main(void)
 	}
 	wait(1000);
 	// write 4-digit data
-	writeLedDisplay(-1);
-	writeLedDisplay(-12);
-	writeLedDisplay(-756);
-	writeLedDisplay(-1582);
-	writeLedDisplay(8);
-	writeLedDisplay(12);
-	writeLedDisplay(852);
-	writeLedDisplay(1564);
+	
+	while (1)
+	{
+		writeString("abcd");
+		wait(2000);
+	}
+
+	
+	
 	
     while (1) 
     {
