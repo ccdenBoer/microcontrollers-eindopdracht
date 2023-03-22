@@ -31,7 +31,8 @@
 #define SPI_MOSI	2						// PB2: spi Pin MOSI
 #define SPI_MISO	3						// PB3: spi Pin MISO
 #define SPI_SS		0						// PB0: spi Pin Slave Select
-int i = 0;
+int position = 0;
+char *text = NULL;
 // wait(): busy waiting for 'ms' millisecond
 // used library: util/delay.h
 void wait(int ms)
@@ -122,20 +123,27 @@ void writeCharacter(char character, char index) {
 	spi_writeWord(0x9, 0);
 	spi_writeWord(index, getCharacterCode(character));
 }
-
-void writeString(char str[]) {
-	char first = str[(3+i)%4];
-	char second = str[(2+i)%4];
-	char third = str[(1+i)%4];
-	char fourth = str[i%4];
-	writeCharacter(first, 1);
-	writeCharacter(second, 2);
-	writeCharacter(third, 3);
-	writeCharacter(fourth, 4);
-	i++;
+void setText(char *str) {
+	text = str;
+	writeText(str);
 }
 
+void writeText() {
+	int len = strlen(text);
+	int j = 4;
+	for (int i = 0; i < 4; i++, j--) {
+		if (i < len) {
+			writeCharacter(text[j], ((i+position)%len)+1);
+			} else {
+			writeCharacter(j, ((i+position)%len)+1);
+		}
+	}
+}
 
+void moveText(int steps) {
+	position+=steps;
+	writeText();
+}
 
 int getCharacterCode(char character) {
 	switch (toupper(character)) {

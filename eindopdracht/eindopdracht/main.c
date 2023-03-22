@@ -48,10 +48,17 @@ int main(void)
 	wait(1000);
 	// write 4-digit data
 	
+	setText("abcde");
+		wait(2000);
 	while (1)
 	{
-		writeString("abcd");
-		wait(2000);
+	moveText(1);
+	wait(2000);
+	moveText(-1);
+	wait(2000);
+		
+		
+		
 	}
 
 	
