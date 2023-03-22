@@ -22,9 +22,6 @@
 #define BIT(x)		( 1<<x )
 #endif
 
-static int on = 1500;
-static int off = 2500;
-
 volatile int msCount = 0;
 
 ISR( TIMER1_COMPA_vect ) {
@@ -63,20 +60,32 @@ int main(void)
 	
 	//adc
 	DDRF = 0x00;				// set PORTF for input (ADC)
-	DDRA = 0xFF;				// set PORTA for output
-	DDRG = 0xFF;				// set PORTG for output
+	DDRA = 0xFF;
+	//DDRD = 0xFF;
 	adc_init();
 	
-	_delay_ms(5000);
-	timer_set_compare_value(1500);
+	_delay_ms(500);
+	timer_set_compare_value(5000);
 	lcd_write_string("fest");
-	
+	int number = 0;
 	
     while (1) 
     {
-		PORTA = ADCL;			// Show MSB/LSB (bit 10:0) of ADC
-		PORTG = ADCH;
-		wait(100);
+		//ADCSRA |= BIT(6);
+		//while (ADCSRA & BIT(6));
+
+		number = ADCH << 2;
+		number |= ADCL >> 6;
+		
+		PORTA = ADCH;
+		//PORTD = ADCL;
+		
+		lcd_clear();
+		lcd_write_integer(msCount);
+		lcd_write_string("-");
+		lcd_write_integer(number);
+
+		wait(1000);
     }
 }
 
