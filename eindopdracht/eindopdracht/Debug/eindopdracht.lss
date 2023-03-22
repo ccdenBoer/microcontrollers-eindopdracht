@@ -3,27 +3,29 @@ eindopdracht.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000000  00800100  00800100  000000f8  2**0
+  0 .data         00000004  00800100  000001c0  00000234  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         000000a4  00000000  00000000  00000054  2**1
+  1 .text         000001c0  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .comment      00000030  00000000  00000000  000000f8  2**0
+  2 .comment      00000030  00000000  00000000  00000238  2**0
                   CONTENTS, READONLY
-  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000128  2**2
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000268  2**2
                   CONTENTS, READONLY
-  4 .debug_aranges 00000020  00000000  00000000  00000164  2**0
+  4 .debug_aranges 00000070  00000000  00000000  000002a4  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   000007fd  00000000  00000000  00000184  2**0
+  5 .debug_info   00000d30  00000000  00000000  00000314  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 00000761  00000000  00000000  00000981  2**0
+  6 .debug_abbrev 00000938  00000000  00000000  00001044  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   000001a3  00000000  00000000  000010e2  2**0
+  7 .debug_line   000004d1  00000000  00000000  0000197c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  00000024  00000000  00000000  00001288  2**2
+  8 .debug_frame  000000d0  00000000  00000000  00001e50  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    000003e5  00000000  00000000  000012ac  2**0
+  9 .debug_str    000004ff  00000000  00000000  00001f20  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_ranges 00000010  00000000  00000000  00001691  2**0
+ 10 .debug_loc    000004f3  00000000  00000000  0000241f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000050  00000000  00000000  00002912  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -31,73 +33,73 @@ Disassembly of section .text:
 00000000 <__vectors>:
    0:	45 c0       	rjmp	.+138    	; 0x8c <__ctors_end>
    2:	00 00       	nop
-   4:	4b c0       	rjmp	.+150    	; 0x9c <__bad_interrupt>
+   4:	58 c0       	rjmp	.+176    	; 0xb6 <__bad_interrupt>
    6:	00 00       	nop
-   8:	49 c0       	rjmp	.+146    	; 0x9c <__bad_interrupt>
+   8:	56 c0       	rjmp	.+172    	; 0xb6 <__bad_interrupt>
    a:	00 00       	nop
-   c:	47 c0       	rjmp	.+142    	; 0x9c <__bad_interrupt>
+   c:	54 c0       	rjmp	.+168    	; 0xb6 <__bad_interrupt>
    e:	00 00       	nop
-  10:	45 c0       	rjmp	.+138    	; 0x9c <__bad_interrupt>
+  10:	52 c0       	rjmp	.+164    	; 0xb6 <__bad_interrupt>
   12:	00 00       	nop
-  14:	43 c0       	rjmp	.+134    	; 0x9c <__bad_interrupt>
+  14:	50 c0       	rjmp	.+160    	; 0xb6 <__bad_interrupt>
   16:	00 00       	nop
-  18:	41 c0       	rjmp	.+130    	; 0x9c <__bad_interrupt>
+  18:	4e c0       	rjmp	.+156    	; 0xb6 <__bad_interrupt>
   1a:	00 00       	nop
-  1c:	3f c0       	rjmp	.+126    	; 0x9c <__bad_interrupt>
+  1c:	4c c0       	rjmp	.+152    	; 0xb6 <__bad_interrupt>
   1e:	00 00       	nop
-  20:	3d c0       	rjmp	.+122    	; 0x9c <__bad_interrupt>
+  20:	4a c0       	rjmp	.+148    	; 0xb6 <__bad_interrupt>
   22:	00 00       	nop
-  24:	3b c0       	rjmp	.+118    	; 0x9c <__bad_interrupt>
+  24:	48 c0       	rjmp	.+144    	; 0xb6 <__bad_interrupt>
   26:	00 00       	nop
-  28:	39 c0       	rjmp	.+114    	; 0x9c <__bad_interrupt>
+  28:	46 c0       	rjmp	.+140    	; 0xb6 <__bad_interrupt>
   2a:	00 00       	nop
-  2c:	37 c0       	rjmp	.+110    	; 0x9c <__bad_interrupt>
+  2c:	44 c0       	rjmp	.+136    	; 0xb6 <__bad_interrupt>
   2e:	00 00       	nop
-  30:	35 c0       	rjmp	.+106    	; 0x9c <__bad_interrupt>
+  30:	42 c0       	rjmp	.+132    	; 0xb6 <__bad_interrupt>
   32:	00 00       	nop
-  34:	33 c0       	rjmp	.+102    	; 0x9c <__bad_interrupt>
+  34:	40 c0       	rjmp	.+128    	; 0xb6 <__bad_interrupt>
   36:	00 00       	nop
-  38:	31 c0       	rjmp	.+98     	; 0x9c <__bad_interrupt>
+  38:	3e c0       	rjmp	.+124    	; 0xb6 <__bad_interrupt>
   3a:	00 00       	nop
-  3c:	2f c0       	rjmp	.+94     	; 0x9c <__bad_interrupt>
+  3c:	3c c0       	rjmp	.+120    	; 0xb6 <__bad_interrupt>
   3e:	00 00       	nop
-  40:	2d c0       	rjmp	.+90     	; 0x9c <__bad_interrupt>
+  40:	3a c0       	rjmp	.+116    	; 0xb6 <__bad_interrupt>
   42:	00 00       	nop
-  44:	2b c0       	rjmp	.+86     	; 0x9c <__bad_interrupt>
+  44:	38 c0       	rjmp	.+112    	; 0xb6 <__bad_interrupt>
   46:	00 00       	nop
-  48:	29 c0       	rjmp	.+82     	; 0x9c <__bad_interrupt>
+  48:	36 c0       	rjmp	.+108    	; 0xb6 <__bad_interrupt>
   4a:	00 00       	nop
-  4c:	27 c0       	rjmp	.+78     	; 0x9c <__bad_interrupt>
+  4c:	34 c0       	rjmp	.+104    	; 0xb6 <__bad_interrupt>
   4e:	00 00       	nop
-  50:	25 c0       	rjmp	.+74     	; 0x9c <__bad_interrupt>
+  50:	32 c0       	rjmp	.+100    	; 0xb6 <__bad_interrupt>
   52:	00 00       	nop
-  54:	23 c0       	rjmp	.+70     	; 0x9c <__bad_interrupt>
+  54:	30 c0       	rjmp	.+96     	; 0xb6 <__bad_interrupt>
   56:	00 00       	nop
-  58:	21 c0       	rjmp	.+66     	; 0x9c <__bad_interrupt>
+  58:	2e c0       	rjmp	.+92     	; 0xb6 <__bad_interrupt>
   5a:	00 00       	nop
-  5c:	1f c0       	rjmp	.+62     	; 0x9c <__bad_interrupt>
+  5c:	2c c0       	rjmp	.+88     	; 0xb6 <__bad_interrupt>
   5e:	00 00       	nop
-  60:	1d c0       	rjmp	.+58     	; 0x9c <__bad_interrupt>
+  60:	2a c0       	rjmp	.+84     	; 0xb6 <__bad_interrupt>
   62:	00 00       	nop
-  64:	1b c0       	rjmp	.+54     	; 0x9c <__bad_interrupt>
+  64:	28 c0       	rjmp	.+80     	; 0xb6 <__bad_interrupt>
   66:	00 00       	nop
-  68:	19 c0       	rjmp	.+50     	; 0x9c <__bad_interrupt>
+  68:	26 c0       	rjmp	.+76     	; 0xb6 <__bad_interrupt>
   6a:	00 00       	nop
-  6c:	17 c0       	rjmp	.+46     	; 0x9c <__bad_interrupt>
+  6c:	24 c0       	rjmp	.+72     	; 0xb6 <__bad_interrupt>
   6e:	00 00       	nop
-  70:	15 c0       	rjmp	.+42     	; 0x9c <__bad_interrupt>
+  70:	22 c0       	rjmp	.+68     	; 0xb6 <__bad_interrupt>
   72:	00 00       	nop
-  74:	13 c0       	rjmp	.+38     	; 0x9c <__bad_interrupt>
+  74:	20 c0       	rjmp	.+64     	; 0xb6 <__bad_interrupt>
   76:	00 00       	nop
-  78:	11 c0       	rjmp	.+34     	; 0x9c <__bad_interrupt>
+  78:	1e c0       	rjmp	.+60     	; 0xb6 <__bad_interrupt>
   7a:	00 00       	nop
-  7c:	0f c0       	rjmp	.+30     	; 0x9c <__bad_interrupt>
+  7c:	1c c0       	rjmp	.+56     	; 0xb6 <__bad_interrupt>
   7e:	00 00       	nop
-  80:	0d c0       	rjmp	.+26     	; 0x9c <__bad_interrupt>
+  80:	1a c0       	rjmp	.+52     	; 0xb6 <__bad_interrupt>
   82:	00 00       	nop
-  84:	0b c0       	rjmp	.+22     	; 0x9c <__bad_interrupt>
+  84:	18 c0       	rjmp	.+48     	; 0xb6 <__bad_interrupt>
   86:	00 00       	nop
-  88:	09 c0       	rjmp	.+18     	; 0x9c <__bad_interrupt>
+  88:	16 c0       	rjmp	.+44     	; 0xb6 <__bad_interrupt>
 	...
 
 0000008c <__ctors_end>:
@@ -107,23 +109,194 @@ Disassembly of section .text:
   92:	d0 e1       	ldi	r29, 0x10	; 16
   94:	de bf       	out	0x3e, r29	; 62
   96:	cd bf       	out	0x3d, r28	; 61
-  98:	02 d0       	rcall	.+4      	; 0x9e <main>
-  9a:	02 c0       	rjmp	.+4      	; 0xa0 <_exit>
 
-0000009c <__bad_interrupt>:
-  9c:	b1 cf       	rjmp	.-158    	; 0x0 <__vectors>
+00000098 <__do_copy_data>:
+  98:	11 e0       	ldi	r17, 0x01	; 1
+  9a:	a0 e0       	ldi	r26, 0x00	; 0
+  9c:	b1 e0       	ldi	r27, 0x01	; 1
+  9e:	e0 ec       	ldi	r30, 0xC0	; 192
+  a0:	f1 e0       	ldi	r31, 0x01	; 1
+  a2:	00 e0       	ldi	r16, 0x00	; 0
+  a4:	0b bf       	out	0x3b, r16	; 59
+  a6:	02 c0       	rjmp	.+4      	; 0xac <__do_copy_data+0x14>
+  a8:	07 90       	elpm	r0, Z+
+  aa:	0d 92       	st	X+, r0
+  ac:	a4 30       	cpi	r26, 0x04	; 4
+  ae:	b1 07       	cpc	r27, r17
+  b0:	d9 f7       	brne	.-10     	; 0xa8 <__do_copy_data+0x10>
+  b2:	7b d0       	rcall	.+246    	; 0x1aa <main>
+  b4:	83 c0       	rjmp	.+262    	; 0x1bc <_exit>
 
-0000009e <main>:
+000000b6 <__bad_interrupt>:
+  b6:	a4 cf       	rjmp	.-184    	; 0x0 <__vectors>
 
-#include <avr/io.h>
+000000b8 <writeInitCommand_strobe_e>:
+{
+	char data_out[16];
+	memset(data_out, 0, sizeof(data_out[0]) * 16);
+	sprintf(data_out, "%u", data);
+	lcd_write_string(data_out);
+}
+  b8:	80 7f       	andi	r24, 0xF0	; 240
+  ba:	88 60       	ori	r24, 0x08	; 8
+  bc:	85 bb       	out	0x15, r24	; 21
+  be:	8f ec       	ldi	r24, 0xCF	; 207
+  c0:	97 e0       	ldi	r25, 0x07	; 7
+  c2:	01 97       	sbiw	r24, 0x01	; 1
+  c4:	f1 f7       	brne	.-4      	; 0xc2 <writeInitCommand_strobe_e+0xa>
+  c6:	00 c0       	rjmp	.+0      	; 0xc8 <writeInitCommand_strobe_e+0x10>
+  c8:	00 00       	nop
+  ca:	85 b3       	in	r24, 0x15	; 21
+  cc:	87 7f       	andi	r24, 0xF7	; 247
+  ce:	85 bb       	out	0x15, r24	; 21
+  d0:	8f ec       	ldi	r24, 0xCF	; 207
+  d2:	97 e0       	ldi	r25, 0x07	; 7
+  d4:	01 97       	sbiw	r24, 0x01	; 1
+  d6:	f1 f7       	brne	.-4      	; 0xd4 <writeInitCommand_strobe_e+0x1c>
+  d8:	00 c0       	rjmp	.+0      	; 0xda <writeInitCommand_strobe_e+0x22>
+  da:	00 00       	nop
+  dc:	08 95       	ret
 
+000000de <write2NibbleCommand_strobe_e>:
+  de:	98 2f       	mov	r25, r24
+  e0:	90 7f       	andi	r25, 0xF0	; 240
+  e2:	98 60       	ori	r25, 0x08	; 8
+  e4:	95 bb       	out	0x15, r25	; 21
+  e6:	ef ec       	ldi	r30, 0xCF	; 207
+  e8:	f7 e0       	ldi	r31, 0x07	; 7
+  ea:	31 97       	sbiw	r30, 0x01	; 1
+  ec:	f1 f7       	brne	.-4      	; 0xea <write2NibbleCommand_strobe_e+0xc>
+  ee:	00 c0       	rjmp	.+0      	; 0xf0 <write2NibbleCommand_strobe_e+0x12>
+  f0:	00 00       	nop
+  f2:	95 b3       	in	r25, 0x15	; 21
+  f4:	97 7f       	andi	r25, 0xF7	; 247
+  f6:	95 bb       	out	0x15, r25	; 21
+  f8:	ef ec       	ldi	r30, 0xCF	; 207
+  fa:	f7 e0       	ldi	r31, 0x07	; 7
+  fc:	31 97       	sbiw	r30, 0x01	; 1
+  fe:	f1 f7       	brne	.-4      	; 0xfc <write2NibbleCommand_strobe_e+0x1e>
+ 100:	00 c0       	rjmp	.+0      	; 0x102 <write2NibbleCommand_strobe_e+0x24>
+ 102:	00 00       	nop
+ 104:	82 95       	swap	r24
+ 106:	80 7f       	andi	r24, 0xF0	; 240
+ 108:	88 60       	ori	r24, 0x08	; 8
+ 10a:	85 bb       	out	0x15, r24	; 21
+ 10c:	8f ec       	ldi	r24, 0xCF	; 207
+ 10e:	97 e0       	ldi	r25, 0x07	; 7
+ 110:	01 97       	sbiw	r24, 0x01	; 1
+ 112:	f1 f7       	brne	.-4      	; 0x110 <write2NibbleCommand_strobe_e+0x32>
+ 114:	00 c0       	rjmp	.+0      	; 0x116 <write2NibbleCommand_strobe_e+0x38>
+ 116:	00 00       	nop
+ 118:	85 b3       	in	r24, 0x15	; 21
+ 11a:	87 7f       	andi	r24, 0xF7	; 247
+ 11c:	85 bb       	out	0x15, r24	; 21
+ 11e:	ef ec       	ldi	r30, 0xCF	; 207
+ 120:	f7 e0       	ldi	r31, 0x07	; 7
+ 122:	31 97       	sbiw	r30, 0x01	; 1
+ 124:	f1 f7       	brne	.-4      	; 0x122 <write2NibbleCommand_strobe_e+0x44>
+ 126:	00 c0       	rjmp	.+0      	; 0x128 <write2NibbleCommand_strobe_e+0x4a>
+ 128:	00 00       	nop
+ 12a:	08 95       	ret
+
+0000012c <write2NibbleData_Strobe_E>:
+ 12c:	98 2f       	mov	r25, r24
+ 12e:	90 7f       	andi	r25, 0xF0	; 240
+ 130:	9c 60       	ori	r25, 0x0C	; 12
+ 132:	95 bb       	out	0x15, r25	; 21
+ 134:	ef ec       	ldi	r30, 0xCF	; 207
+ 136:	f7 e0       	ldi	r31, 0x07	; 7
+ 138:	31 97       	sbiw	r30, 0x01	; 1
+ 13a:	f1 f7       	brne	.-4      	; 0x138 <write2NibbleData_Strobe_E+0xc>
+ 13c:	00 c0       	rjmp	.+0      	; 0x13e <write2NibbleData_Strobe_E+0x12>
+ 13e:	00 00       	nop
+ 140:	95 b3       	in	r25, 0x15	; 21
+ 142:	97 7f       	andi	r25, 0xF7	; 247
+ 144:	95 bb       	out	0x15, r25	; 21
+ 146:	ef ec       	ldi	r30, 0xCF	; 207
+ 148:	f7 e0       	ldi	r31, 0x07	; 7
+ 14a:	31 97       	sbiw	r30, 0x01	; 1
+ 14c:	f1 f7       	brne	.-4      	; 0x14a <write2NibbleData_Strobe_E+0x1e>
+ 14e:	00 c0       	rjmp	.+0      	; 0x150 <write2NibbleData_Strobe_E+0x24>
+ 150:	00 00       	nop
+ 152:	82 95       	swap	r24
+ 154:	80 7f       	andi	r24, 0xF0	; 240
+ 156:	8c 60       	ori	r24, 0x0C	; 12
+ 158:	85 bb       	out	0x15, r24	; 21
+ 15a:	8f ec       	ldi	r24, 0xCF	; 207
+ 15c:	97 e0       	ldi	r25, 0x07	; 7
+ 15e:	01 97       	sbiw	r24, 0x01	; 1
+ 160:	f1 f7       	brne	.-4      	; 0x15e <write2NibbleData_Strobe_E+0x32>
+ 162:	00 c0       	rjmp	.+0      	; 0x164 <write2NibbleData_Strobe_E+0x38>
+ 164:	00 00       	nop
+ 166:	85 b3       	in	r24, 0x15	; 21
+ 168:	87 7f       	andi	r24, 0xF7	; 247
+ 16a:	85 bb       	out	0x15, r24	; 21
+ 16c:	ef ec       	ldi	r30, 0xCF	; 207
+ 16e:	f7 e0       	ldi	r31, 0x07	; 7
+ 170:	31 97       	sbiw	r30, 0x01	; 1
+ 172:	f1 f7       	brne	.-4      	; 0x170 <write2NibbleData_Strobe_E+0x44>
+ 174:	00 c0       	rjmp	.+0      	; 0x176 <write2NibbleData_Strobe_E+0x4a>
+ 176:	00 00       	nop
+ 178:	08 95       	ret
+
+0000017a <init_4bits_mode>:
+ 17a:	80 e2       	ldi	r24, 0x20	; 32
+ 17c:	9d df       	rcall	.-198    	; 0xb8 <writeInitCommand_strobe_e>
+ 17e:	88 e2       	ldi	r24, 0x28	; 40
+ 180:	ae df       	rcall	.-164    	; 0xde <write2NibbleCommand_strobe_e>
+ 182:	8f e0       	ldi	r24, 0x0F	; 15
+ 184:	ac df       	rcall	.-168    	; 0xde <write2NibbleCommand_strobe_e>
+ 186:	86 e0       	ldi	r24, 0x06	; 6
+ 188:	aa cf       	rjmp	.-172    	; 0xde <write2NibbleCommand_strobe_e>
+ 18a:	08 95       	ret
+
+0000018c <lcd_write_string>:
+ 18c:	cf 93       	push	r28
+ 18e:	df 93       	push	r29
+ 190:	ec 01       	movw	r28, r24
+ 192:	02 c0       	rjmp	.+4      	; 0x198 <lcd_write_string+0xc>
+ 194:	cb df       	rcall	.-106    	; 0x12c <write2NibbleData_Strobe_E>
+ 196:	21 96       	adiw	r28, 0x01	; 1
+ 198:	88 81       	ld	r24, Y
+ 19a:	81 11       	cpse	r24, r1
+ 19c:	fb cf       	rjmp	.-10     	; 0x194 <lcd_write_string+0x8>
+ 19e:	df 91       	pop	r29
+ 1a0:	cf 91       	pop	r28
+ 1a2:	08 95       	ret
+
+000001a4 <lcd_clear>:
+
+void lcd_clear()
+{
+	write2NibbleCommand_strobe_e (0x01);
+ 1a4:	81 e0       	ldi	r24, 0x01	; 1
+ 1a6:	9b cf       	rjmp	.-202    	; 0xde <write2NibbleCommand_strobe_e>
+ 1a8:	08 95       	ret
+
+000001aa <main>:
+#include <string.h>
+#include "lcd/lcd.h"
 
 int main(void)
 {
-  9e:	ff cf       	rjmp	.-2      	; 0x9e <main>
+	DDRC = 0xFF;
+ 1aa:	8f ef       	ldi	r24, 0xFF	; 255
+ 1ac:	84 bb       	out	0x14, r24	; 20
+	PORTC = 0x00;
+ 1ae:	15 ba       	out	0x15, r1	; 21
+	
+	init_4bits_mode();
+ 1b0:	e4 df       	rcall	.-56     	; 0x17a <init_4bits_mode>
+	lcd_clear();
+ 1b2:	f8 df       	rcall	.-16     	; 0x1a4 <lcd_clear>
+ 1b4:	80 e0       	ldi	r24, 0x00	; 0
+	lcd_write_string("yoo");
+ 1b6:	91 e0       	ldi	r25, 0x01	; 1
+ 1b8:	e9 df       	rcall	.-46     	; 0x18c <lcd_write_string>
+ 1ba:	ff cf       	rjmp	.-2      	; 0x1ba <main+0x10>
 
-000000a0 <_exit>:
-  a0:	f8 94       	cli
+000001bc <_exit>:
+ 1bc:	f8 94       	cli
 
-000000a2 <__stop_program>:
-  a2:	ff cf       	rjmp	.-2      	; 0xa2 <__stop_program>
+000001be <__stop_program>:
+ 1be:	ff cf       	rjmp	.-2      	; 0x1be <__stop_program>

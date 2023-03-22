@@ -32,11 +32,13 @@ LIB_DEP:=
 LINKER_SCRIPT_DEP:=
 
 # Every subdirectory with source files must be described here
-SUBDIRS := 
+SUBDIRS :=  \
+../lcd
 
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
+../lcd/lcd.c \
 ../main.c
 
 
@@ -47,15 +49,19 @@ ASM_SRCS +=
 
 
 OBJS +=  \
+lcd/lcd.o \
 main.o
 
 OBJS_AS_ARGS +=  \
+lcd/lcd.o \
 main.o
 
 C_DEPS +=  \
+lcd/lcd.d \
 main.d
 
 C_DEPS_AS_ARGS +=  \
+lcd/lcd.d \
 main.d
 
 OUTPUT_FILE_PATH +=eindopdracht.elf
@@ -72,6 +78,13 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+lcd/lcd.o: ../lcd/lcd.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -mrelax -g2 -Wall -mmcu=atmega128 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega128" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
 ./main.o: .././main.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
