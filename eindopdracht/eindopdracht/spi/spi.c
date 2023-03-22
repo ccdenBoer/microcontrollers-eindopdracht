@@ -23,7 +23,8 @@
 #include <util/delay.h>
 #include <stdbool.h>
 #include "spi.h"
-
+#include <ctype.h>
+#include <string.h>
 
 #define DDR_SPI		DDRB					// spi Data direction register
 #define PORT_SPI	PORTB					// spi Output register
@@ -31,7 +32,8 @@
 #define SPI_MOSI	2						// PB2: spi Pin MOSI
 #define SPI_MISO	3						// PB3: spi Pin MISO
 #define SPI_SS		0						// PB0: spi Pin Slave Select
-
+int position = 0;
+char *text = NULL;
 // wait(): busy waiting for 'ms' millisecond
 // used library: util/delay.h
 void wait(int ms)
@@ -90,7 +92,6 @@ void spi_writeWord ( unsigned char adress, unsigned char data ) {
 	spi_write(adress);
 	spi_write(data);
 	spi_slaveDeSelect(0);
-	  
 }
 void displayDriverInit() 
 {
@@ -117,6 +118,84 @@ void displayOff()
   	spi_write(0x0C); 				// Register 0B: Shutdown register
   	spi_write(0x00); 				// 	-> 1 = Normal operation
   	spi_slaveDeSelect(0);			// Deselect display chip
+}
+
+void writeCharacter(char character, char index) {
+	spi_writeWord(0x9, 0);
+	spi_writeWord(index, getCharacterCode(character));
+}
+void setText(char *str) {
+	text = str;
+	writeText(str);
+}
+
+void writeText(char *string) {
+	while(strlen(string) < 4){
+		strcat(string, (char*)' ');
+	}
+	
+	int j = 4;
+	for (int i = 0; i < 4; i++, j--) {
+		writeCharacter(string[i], j);
+	}
+}
+
+void moveText(int steps) {
+	int len = strlen(text)+1;
+	position+=steps;
+	if(position < 0){
+		position = len + steps-1;
+	}
+	position%=len;
+	char newText[] = {text[(position)%(len-1)],text[(1+position)%(len-1)],text[(2+position)%(len-1)],text[(3+position)%(len-1)], 0} ;
+	writeText(newText);
+}
+
+int getCharacterCode(char character) {
+	switch (toupper(character)) {
+		case 'A':
+			return 0x77;
+		case 'B':
+			return 0x1F;
+		case 'C':
+			return 0x4E;
+		case 'D':
+			return 0x3D;
+		case 'E':
+			return 0x4F;
+		case 'F':
+			return 0x47;
+		case 'G':
+			return 0x5E;
+		case 'H':
+			return 0x37;
+		case 'I':
+			return 0x06;
+		case 'J':
+			return 0x3C;
+		case 'L':
+			return 0x0E;
+		case 'N':
+			return 0x15;
+		case 'O':
+			return 0x7E;
+		case 'P':
+			return 0x67;
+		case 'Q':
+			return 0x73;
+		case 'R':
+			return 0x05;
+		case 'S':
+			return 0x5B;
+		case 'T':
+			return 0x0F;
+		case 'U':
+			return 0x3E;
+		case 'Y':
+			return 0x3B;
+		default:
+			return 0x00;  // return 0x00 for any other character
+	}
 }
 void writeLedDisplay( int value ) {
 	int min_pos = -1;

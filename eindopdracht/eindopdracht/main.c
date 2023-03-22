@@ -28,17 +28,15 @@ bool right_direction = true;
 int number = 0;
 
 ISR( TIMER1_COMPA_vect ) {
-	writeLedDisplay(msCount);
+	//writeLedDisplay(msCount);
 	number = ADCH << 2;
 	number |= ADCL >> 6;
 	timer_set_compare_value(20*number);
 	
 	if(right_direction){
-		msCount++;
-		//move right
+		moveText(1);
 	} else {
-		msCount--;
-		//move left
+		moveText(-1);
 	}
 	
 	
@@ -74,6 +72,10 @@ int main(void)
 		spi_write(0);				// 	digit value: 0
 		spi_slaveDeSelect(0);		// Deselect display chip
 	}
+	
+	char *text = "a   ";
+	
+	setText(text);
 		
 	//adc
 	DDRF = 0x00;				// set PORTF for input (ADC)
@@ -108,8 +110,10 @@ int main(void)
 		//PORTD = ADCL;
 		
 		lcd_clear();
-		lcd_write_integer(msCount);
-		lcd_write_string("-");
+		lcd_write_string("a");
+		wait(3);
+		lcd_write_string(" - ");
+		wait(3);
 		lcd_write_integer(number);
 
 		wait(1000);
