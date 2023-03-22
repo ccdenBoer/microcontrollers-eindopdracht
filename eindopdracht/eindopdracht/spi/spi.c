@@ -89,7 +89,6 @@ void spi_writeWord ( unsigned char adress, unsigned char data ) {
 	spi_write(adress);
 	spi_write(data);
 	spi_slaveDeSelect(0);
-	  
 }
 void displayDriverInit() 
 {
@@ -116,6 +115,69 @@ void displayOff()
   	spi_write(0x0C); 				// Register 0B: Shutdown register
   	spi_write(0x00); 				// 	-> 1 = Normal operation
   	spi_slaveDeSelect(0);			// Deselect display chip
+}
+
+void writeCharacterToDisplay(char character, int index) {
+	spi_writeWord(index, getCharacterCode(character));
+}
+
+int getCharacterCode(char character) {
+	int getCharacterCode(char character) {
+		switch (character) {
+			case 'A':
+				return 0x77;
+			case 'a':
+				return 0x7D;
+			case 'b':
+				return 0x1F;
+			case 'C':
+				return 0x4E;
+			case 'c':
+				return 0x0D;
+			case 'd':
+				return 0x3D;
+			case 'E':
+				return 0x4F;
+			case 'F':
+				return 0x47;
+			case 'G':
+				return 0x5E;
+			case 'H':
+				return 0x37;
+			case 'h':
+				return 0x17;
+			case 'I':
+				return 0x06;
+			case 'J':
+				return 0x3C;
+			case 'L':
+				return 0x0E;
+			case 'n':
+				return 0x15;
+			case 'O':
+				return 0x7E;
+			case 'o':
+				return 0x1D;
+			case 'P':
+				return 0x67;
+			case 'q':
+				return 0x73;
+			case 'r':
+				return 0x05;
+			case 'S':
+				return 0x5B;
+			case 't':
+				return 0x0F;
+			case 'U':
+				return 0x3E;
+			case 'u':
+				return 0x1C;
+			case 'y':
+				return 0x3B;
+			default:
+				return 0x00;  // return 0x00 for any other character
+		}
+	}
 }
 void writeLedDisplay( int value ) {
 	int min_pos = -1;
