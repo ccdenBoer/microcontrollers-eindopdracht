@@ -23,6 +23,8 @@ void displayOn();
 void displayOff();
 void writeLedDisplay( int value );
 void wait(int ms);
+void writeCharacterToDisplay(char character, int index);
+int getCharacterCode(char character);
 
 
 
