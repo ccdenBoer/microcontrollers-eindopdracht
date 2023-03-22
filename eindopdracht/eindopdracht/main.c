@@ -67,6 +67,10 @@ int main(void)
 	DDRG = 0xFF;				// set PORTG for output
 	adc_init();
 	
+	_delay_ms(5000);
+	timer_set_compare_value(1500);
+	lcd_write_string("fest");
+	
 	
     while (1) 
     {
