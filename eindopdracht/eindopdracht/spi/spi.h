@@ -18,6 +18,7 @@ char spi_writeRead( unsigned char data );
 void spi_slaveSelect(unsigned char chipNumber);
 void spi_slaveDeSelect(unsigned char chipNumber);
 void spi_writeWord ( unsigned char adress, unsigned char data );
+void spi_scroll(bool right);
 void displayDriverInit();
 void displayOn();
 void displayOff();

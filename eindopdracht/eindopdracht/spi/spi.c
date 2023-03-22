@@ -21,6 +21,7 @@
 #define F_CPU 8e6
 #include <avr/io.h>
 #include <util/delay.h>
+#include <stdbool.h>
 #include "spi.h"
 
 
@@ -144,6 +145,11 @@ void writeLedDisplay( int value ) {
 		spi_writeWord(min_pos, 10);
 	}
 	wait(1000);
+	
+}
+
+//TODO make
+void spi_scroll(bool right){
 	
 }
 

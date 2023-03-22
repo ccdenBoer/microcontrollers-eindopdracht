@@ -22,6 +22,16 @@
 #define BIT(x)		( 1<<x )
 #endif
 
+static int on = 1500;
+static int off = 2500;
+
+volatile int msCount = 0;
+
+ISR( TIMER1_COMPA_vect ) {
+	writeLedDisplay(msCount);
+	msCount++;
+}
+
 int main(void)
 {
 	//lcd
@@ -45,19 +55,24 @@ int main(void)
 		spi_write(0);				// 	digit value: 0
 		spi_slaveDeSelect(0);		// Deselect display chip
 	}
-	wait(1000);
-	// write 4-digit data
-	writeLedDisplay(-1);
-	writeLedDisplay(-12);
-	writeLedDisplay(-756);
-	writeLedDisplay(-1582);
-	writeLedDisplay(8);
-	writeLedDisplay(12);
-	writeLedDisplay(852);
-	writeLedDisplay(1564);
+	
+	//timer
+	//DDRD = 0xFF;
+	timer_init();
+	
+	
+	//adc
+	DDRF = 0x00;				// set PORTF for input (ADC)
+	DDRA = 0xFF;				// set PORTA for output
+	DDRG = 0xFF;				// set PORTG for output
+	adc_init();
+	
 	
     while (1) 
     {
+		PORTA = ADCL;			// Show MSB/LSB (bit 10:0) of ADC
+		PORTG = ADCH;
+		wait(100);
     }
 }
 

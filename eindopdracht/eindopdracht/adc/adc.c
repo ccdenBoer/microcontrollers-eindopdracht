@@ -5,9 +5,12 @@
  *  Author: Coen den Boer & Momin Musa
  */ 
 
+#include <avr/io.h>
 #include "adc.h"
 
+
 void adc_init(){
-	
+		ADMUX = 0b11000010;			// AREF=2.56V, result left adjusted, channel1 at pin PF1
+		ADCSRA = 0b11100110;		// ADC-enable, no interrupt, start, free running, division by 64
 }
 
