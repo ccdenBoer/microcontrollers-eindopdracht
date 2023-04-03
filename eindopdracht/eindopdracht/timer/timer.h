@@ -15,6 +15,7 @@
 
 void timer_init();
 void timer_set_compare_value(int value);
+int timer_get_hz();
 
 
 

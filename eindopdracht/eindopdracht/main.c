@@ -23,25 +23,29 @@
 #endif
 
 volatile int msCount = 0;
-bool right_direction = true;
+static bool right_direction = true;
 
-int number = 0;
+static int number = 0;
 
 ISR( TIMER1_COMPA_vect ) {
-	//writeLedDisplay(msCount);
+	//read out the 10 bit value
 	number = ADCH << 2;
 	number |= ADCL >> 6;
-	timer_set_compare_value(20*number);
 	
+	//10.240 + 54 * 1024(max 10 bit value) = 65536(max value of an 16 bit integer)
+	timer_set_compare_value(64*number);
+	
+	//move the text on the 7-seg display
 	if(right_direction){
-		moveText(1);
+		spi_moveText(1);
 	} else {
-		moveText(-1);
+		spi_moveText(-1);
 	}
 	
 	
 }
 
+//react to button pres to change the direction the 7-seg display scrolls
 ISR( INT0_vect ) {
     if(right_direction){
 		right_direction = false;
@@ -63,7 +67,7 @@ int main(void)
 	// inilialize
 	DDRB=0x01;					  	// Set PB0 pin as output for display select
 	spi_masterInit();              	// Initialize spi module
-	displayDriverInit();            // Initialize display chip
+	spi_displayDriverInit();            // Initialize display chip
 	// clear display (all zero's)
 	for (char i =1; i<=4; i++)
 	{
@@ -73,49 +77,50 @@ int main(void)
 		spi_slaveDeSelect(0);		// Deselect display chip
 	}
 	
-	char *text = "a   ";
+	char *text = "hallo iedereen.";
 	
-	setText(text);
+	spi_setText(text);
 		
-	//adc
+	//adc initialization
 	DDRF = 0x00;				// set PORTF for input (ADC)
-	DDRA = 0xFF;
-	//DDRD = 0xFF;
+	DDRA = 0xFF;				// set PORTA for output
 	adc_init();
 	
+	//read the 10 bits from the adc into number
 	number = ADCH << 2;
 	number |= ADCL >> 6;
-	
-	//timer
-	//DDRD = 0xFF;
+
+	//timer initialization
 	timer_init();
 	number = ADCH << 2;
 	number |= ADCL >> 6;
 	timer_set_compare_value(6*number);
 	
-	//interupt
-	// Init I/O
+	//interupt initialization
 	DDRE = 0x01;			// PORTE 0 input	
 
 	// Init Interrupt hardware
 	EICRA |= 0x03;			// INT0 rising edge
 	EIMSK |= 0x01;			// Enable INT0
 	
+	//enable global interupts
 	sei();
 	
     while (1) 
     {
 
 		PORTA = ADCH;
-		//PORTD = ADCL;
 		
+		//write the full string and speed to the lcd, "<text> - <speed> hz"
 		lcd_clear();
-		lcd_write_string("a");
+		lcd_write_string(text);
 		wait(3);
 		lcd_write_string(" - ");
 		wait(3);
-		lcd_write_integer(number);
-
+		lcd_write_integer(timer_get_hz());
+		wait(3);
+		lcd_write_string(" Hz");
+		
 		wait(1000);
     }
 }
