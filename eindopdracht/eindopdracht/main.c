@@ -26,7 +26,10 @@ volatile int msCount = 0;
 static bool right_direction = true;
 
 static int number = 0;
+static int text_id = 0;
+static bool change_text = false;
 
+//compare timer set with 256 prescaler, to scroll 7-seg display
 ISR( TIMER1_COMPA_vect ) {
 	//read out the 10 bit value
 	number = ADCH << 2;
@@ -54,6 +57,11 @@ ISR( INT0_vect ) {
 	}
 }
 
+//change diplayed text
+ISR( INT1_vect ) {
+	change_text = true;
+}
+
 int main(void)
 {
 	//lcd
@@ -77,9 +85,12 @@ int main(void)
 		spi_slaveDeSelect(0);		// Deselect display chip
 	}
 	
-	char *text = "hallo iedereen.";
+	char *texts[] = {((char *) malloc(sizeof(char) * 25)), ((char *) malloc(sizeof(char) * 25)), ((char *) malloc(sizeof(char) * 25))};
+	snprintf(texts[0], 25, "a");
+	snprintf(texts[1], 25, "hallo");
+	snprintf(texts[2], 25, "langere text");
 	
-	spi_setText(text);
+	spi_setText(texts[0]);
 		
 	//adc initialization
 	DDRF = 0x00;				// set PORTF for input (ADC)
@@ -97,7 +108,7 @@ int main(void)
 	timer_set_compare_value(6*number);
 	
 	//interupt initialization
-	DDRE = 0x01;			// PORTE 0 input	
+	DDRE = 0x02;			// PORTE 0, 1 input	
 
 	// Init Interrupt hardware
 	EICRA |= 0x03;			// INT0 rising edge
@@ -111,9 +122,19 @@ int main(void)
 
 		PORTA = ADCH;
 		
+		if(change_text){
+			change_text = false;
+			if(text_id + 1 > 2){
+				text_id = 0;
+			} else{
+				text_id++;
+			}
+			spi_setText(texts[text_id]);
+		}
+		
 		//write the full string and speed to the lcd, "<text> - <speed> hz"
 		lcd_clear();
-		lcd_write_string(text);
+		lcd_write_string(texts[text_id]);
 		wait(3);
 		lcd_write_string(" - ");
 		wait(3);
