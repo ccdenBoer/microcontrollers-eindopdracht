@@ -127,7 +127,7 @@ void spi_writeCharacter(char character, char index) {
 }
 void spi_setText(char *str) {
 	text = str;
-	spi_writeText(str);
+	//spi_writeText(str);
 }
 
 void spi_writeText(char *string) {

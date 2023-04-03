@@ -27,7 +27,7 @@ static bool right_direction = true;
 
 static int number = 0;
 static int text_id = 0;
-static bool change_text = false;
+static bool change_text = true;
 
 //compare timer set with 256 prescaler, to scroll 7-seg display
 ISR( TIMER1_COMPA_vect ) {
@@ -60,6 +60,10 @@ ISR( INT0_vect ) {
 //change diplayed text
 ISR( INT1_vect ) {
 	change_text = true;
+}
+
+void update(){
+
 }
 
 int main(void)
@@ -105,14 +109,15 @@ int main(void)
 	timer_init();
 	number = ADCH << 2;
 	number |= ADCL >> 6;
-	timer_set_compare_value(6*number);
+	timer_set_compare_value(64*number);
 	
 	//interupt initialization
-	DDRE = 0x02;			// PORTE 0, 1 input	
+	DDRE = 0x03;			// PORTE 0, 1 input	
 
 	// Init Interrupt hardware
-	EICRA |= 0x03;			// INT0 rising edge
-	EIMSK |= 0x01;			// Enable INT0
+	EICRA |= 0x03;			// INT0, INT1 rising edge
+	EICRA |= BIT(10);
+	EIMSK |= 0x03;			// Enable INT0, INT1
 	
 	//enable global interupts
 	sei();
