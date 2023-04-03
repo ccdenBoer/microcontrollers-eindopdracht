@@ -132,7 +132,7 @@ void spi_setText(char *str) {
 
 void spi_writeText(char *string) {
 	while(strlen(string) < 4){
-		strcat(string, (char*)' ');
+		strcat(string, " ");
 	}
 	
 	int j = 4;

@@ -77,8 +77,8 @@ int main(void)
 		spi_slaveDeSelect(0);		// Deselect display chip
 	}
 	
-	char *text = "hallo iedereen.";
-	
+	char *text = (char *) malloc(sizeof(char) * 25);
+	snprintf(text, 25, "langere text");
 	spi_setText(text);
 		
 	//adc initialization
