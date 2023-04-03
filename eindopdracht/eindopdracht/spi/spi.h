@@ -18,17 +18,16 @@ char spi_writeRead( unsigned char data );
 void spi_slaveSelect(unsigned char chipNumber);
 void spi_slaveDeSelect(unsigned char chipNumber);
 void spi_writeWord ( unsigned char adress, unsigned char data );
-void spi_scroll(bool right);
-void displayDriverInit();
-void displayOn();
-void displayOff();
-void writeLedDisplay( int value );
+void spi_displayDriverInit();
+void spi_displayOn();
+void spi_displayOff();
+void spi_writeLedDisplay( int value );
 void wait(int ms);
-void writeCharacter(char character, char index);
-int getCharacterCode(char character);
-void writeText(char *string);
-void setText(char str[]);
-void moveText(int steps);
+void spi_writeCharacter(char character, char index);
+int spi_getCharacterCode(char character);
+void spi_writeText(char *string);
+void spi_setText(char str[]);
+void spi_moveText(int steps);
 
 
 

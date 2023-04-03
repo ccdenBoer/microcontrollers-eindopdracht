@@ -32,8 +32,9 @@
 #define SPI_MOSI	2						// PB2: spi Pin MOSI
 #define SPI_MISO	3						// PB3: spi Pin MISO
 #define SPI_SS		0						// PB0: spi Pin Slave Select
-int position = 0;
-char *text = NULL;
+
+static int position = 0;
+static char *text = NULL;
 // wait(): busy waiting for 'ms' millisecond
 // used library: util/delay.h
 void wait(int ms)
@@ -93,7 +94,7 @@ void spi_writeWord ( unsigned char adress, unsigned char data ) {
 	spi_write(data);
 	spi_slaveDeSelect(0);
 }
-void displayDriverInit() 
+void spi_displayDriverInit() 
 {
 	spi_writeWord (0x09, 0xFF);
 	spi_writeWord (0x0A, 0x04);
@@ -103,7 +104,7 @@ void displayDriverInit()
 }
 
 // Set display on ('normal operation')
-void displayOn() 
+void spi_displayOn() 
 {
   	spi_slaveSelect(0);				// Select display chip
   	spi_write(0x0C); 				// Register 0B: Shutdown register
@@ -112,7 +113,7 @@ void displayOn()
 }
 
 // Set display off ('shut down')
-void displayOff() 
+void spi_displayOff() 
 {
   	spi_slaveSelect(0);				// Select display chip
   	spi_write(0x0C); 				// Register 0B: Shutdown register
@@ -120,27 +121,27 @@ void displayOff()
   	spi_slaveDeSelect(0);			// Deselect display chip
 }
 
-void writeCharacter(char character, char index) {
+void spi_writeCharacter(char character, char index) {
 	spi_writeWord(0x9, 0);
-	spi_writeWord(index, getCharacterCode(character));
+	spi_writeWord(index, spi_getCharacterCode(character));
 }
-void setText(char *str) {
+void spi_setText(char *str) {
 	text = str;
-	writeText(str);
+	spi_writeText(str);
 }
 
-void writeText(char *string) {
+void spi_writeText(char *string) {
 	while(strlen(string) < 4){
 		strcat(string, (char*)' ');
 	}
 	
 	int j = 4;
 	for (int i = 0; i < 4; i++, j--) {
-		writeCharacter(string[i], j);
+		spi_writeCharacter(string[i], j);
 	}
 }
 
-void moveText(int steps) {
+void spi_moveText(int steps) {
 	int len = strlen(text)+1;
 	position+=steps;
 	if(position < 0){
@@ -148,10 +149,10 @@ void moveText(int steps) {
 	}
 	position%=len;
 	char newText[] = {text[(position)%(len-1)],text[(1+position)%(len-1)],text[(2+position)%(len-1)],text[(3+position)%(len-1)], 0} ;
-	writeText(newText);
+	spi_writeText(newText);
 }
 
-int getCharacterCode(char character) {
+int spi_getCharacterCode(char character) {
 	switch (toupper(character)) {
 		case 'A':
 			return 0x77;
@@ -197,7 +198,7 @@ int getCharacterCode(char character) {
 			return 0x00;  // return 0x00 for any other character
 	}
 }
-void writeLedDisplay( int value ) {
+void spi_writeLedDisplay( int value ) {
 	int min_pos = -1;
 	int pos_value = value;
 	if(value < 0) {
@@ -227,8 +228,4 @@ void writeLedDisplay( int value ) {
 	
 }
 
-//TODO make
-void spi_scroll(bool right){
-	
-}
 
