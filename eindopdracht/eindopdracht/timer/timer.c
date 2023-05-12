@@ -15,5 +15,5 @@ void timer_init(){
 	TCCR1A = 0b00000000;
 	TCCR1B = 0b00001100; // // Initialize T1: timer, prescaler = 256, compare output disconnected, CTC, RUN
 	TIMSK |= (1<<4); // T1 compare match A interrupt enable
-}//set the compare value, starting at 10240, allowing the timer to be between 30.5 Hz and 4.76 Hzvoid timer_set_compare_value(int value){	//check for overflow	if(10240 + value > 0xFFFF || 10000 + value < 10000){		OCR1A = 0xFFFF;	} else{		OCR1A = (10240+value);	}		TCNT1 = 0x00;	}//calculate the hz of the current timer (80 Mhz / 256 prescaler / current compare value)int timer_get_hz(){	return 312500/OCR1A;}
+}//set the compare value, starting at 10240, allowing the timer to be between 3.05 Hz and 0.476 Hzvoid timer_set_compare_value(int value){	//check for overflow	if(10240 + value > 0xFFFF || 10000 + value < 10000){		OCR1A = 0xFFFF;	} else{		OCR1A = (10240+value);	}	TCNT1 = 0x00;}//calculate the hz of the current timer (80 Mhz / 256 prescaler / current compare value)int timer_get_hz(){	return 312500/OCR1A;}
 

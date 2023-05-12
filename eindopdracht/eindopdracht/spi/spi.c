@@ -142,13 +142,13 @@ void spi_writeText(char *string) {
 }
 
 void spi_moveText(int steps) {
-	int len = strlen(text)+1;
+	int len = strlen(text);
 	position+=steps;
 	if(position < 0){
-		position = len + steps-1;
+		position = len + steps;
 	}
 	position%=len;
-	char newText[] = {text[(position)%(len-1)],text[(1+position)%(len-1)],text[(2+position)%(len-1)],text[(3+position)%(len-1)], 0} ;
+	char newText[] = {text[(position)%(len)],text[(1+position)%(len)],text[(2+position)%(len)],text[(3+position)%(len)], 0} ;
 	spi_writeText(newText);
 }
 

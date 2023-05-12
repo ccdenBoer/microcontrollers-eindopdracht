@@ -33,7 +33,7 @@ ISR( TIMER1_COMPA_vect ) {
 	number |= ADCL >> 6;
 	
 	//10.240 + 54 * 1024(max 10 bit value) = 65536(max value of an 16 bit integer)
-	timer_set_compare_value(64*number);
+	timer_set_compare_value(54*number);
 	
 	//move the text on the 7-seg display
 	if(right_direction){
@@ -78,7 +78,7 @@ int main(void)
 	}
 	
 	char *text = (char *) malloc(sizeof(char) * 25);
-	snprintf(text, 25, "langere text");
+	snprintf(text, 25, "abcdef ");
 	spi_setText(text);
 		
 	//adc initialization
@@ -94,7 +94,7 @@ int main(void)
 	timer_init();
 	number = ADCH << 2;
 	number |= ADCL >> 6;
-	timer_set_compare_value(6*number);
+	timer_set_compare_value(54*number);
 	
 	//interupt initialization
 	DDRE = 0x01;			// PORTE 0 input	
@@ -117,7 +117,12 @@ int main(void)
 		wait(3);
 		lcd_write_string(" - ");
 		wait(3);
-		lcd_write_integer(timer_get_hz());
+		int time = timer_get_hz();
+		lcd_write_integer((time - time % 10)/10);
+		wait(3);
+		lcd_write_string(".");
+		wait(3);
+		lcd_write_integer(time % 10);
 		wait(3);
 		lcd_write_string(" Hz");
 		
